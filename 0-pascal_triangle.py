@@ -2,6 +2,7 @@
 
 '''this module prints the pascal's triangle'''
 
+
 def pascal_triangle(n):
     '''print pascal's triangle'''
     triangle = []
