@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+'''this module prints the pascal's triangle'''
 
 def pascal_triangle(n):
     '''print pascal's triangle'''
@@ -7,7 +8,7 @@ def pascal_triangle(n):
 
     for i in range(n):
         # loop to get leading spaces
-        row = [1] * [i + 1]
+        row = [1] * (i + 1)
 
         # loop to get elements of row i
         for j in range(1, i):
