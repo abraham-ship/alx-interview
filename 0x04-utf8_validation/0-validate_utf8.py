@@ -6,21 +6,24 @@ def validUTF8(data):
     represents a valid UTF-8 encoding'''
     remaining_bytes = 0
 
-    for byte in data:
+    mask1 = 1 << 7
+    mask2 = 1 << 6
+
+    for num in data:
+        mask = 1 << 7
         if remaining_bytes == 0:
-            if byte >> 3 == 0b11110:
-                remaining_bytes = 3
-            elif byte >> 4 == 0b1110:
-                remaining_bytes = 2
-            elif byte >> 5 == 0b110:
-                remaining_bytes = 1
-            elif byte >> 7 == 0:
-                remaining_bytes = 0
-            else:
-                return False
-        else:
-            if byte >> 6 == 0b10:
-                remaining_bytes -= 1
-            else:
+            while mask & num:
+                remaining_bytes += 1
+                mask = mask >> 1
+
+            if remaining_bytes == 0:
+                continue
+            if remaining_bytes == 1 or remaining_bytes > 4:
                 return False
 
+        else:
+            if not (num & mask1 and not (num & mask2)):
+                return False
+
+        remaining_bytes -= 1
+    return remaining_bytes == 0
